@@ -9,10 +9,10 @@ objectives:
     displayName: "Number of error raised by the application"
     pass:
       - criteria:
-          - "<5"
+          - "<4"
     warning:
       - criteria:
-          - ">=5"
+          - ">=4"
           - "<6"
     fail:
       - criteria:
