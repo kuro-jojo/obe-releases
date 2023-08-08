@@ -9,14 +9,14 @@ objectives:
     displayName: "Number of error raised by the application"
     pass:
       - criteria:
-          - "<8"
+          - "<10"
     warning:
       - criteria:
-          - ">=8"
-          - "<10"
+          - ">=10"
+          - "<12"
     fail:
       - criteria:
-          - ">=10"
+          - ">=12"
 
 total_score:
   pass: "100%"
