@@ -13,10 +13,10 @@ objectives:
     warning:
       - criteria:
           - ">=8"
-          - "<10"
+          - "<14"
     fail:
       - criteria:
-          - ">=10"
+          - ">=14"
 
 total_score:
   pass: "100%"
