@@ -11,9 +11,6 @@ actions:
           - name: IMAGE
             value: "$.data.configurationChange.values.image"
             valueFrom: event
-          - name: VERSION 
-            value: "$.data.configurationChange.values.version"
-            valueFrom: event
         image: "alpine/helm:3.7.2"
         serviceAccount: "jes-deploy-using-helm"
         cmd: 
@@ -28,8 +25,8 @@ actions:
           - "/keptn/charts/$(KEPTN_SERVICE).tgz"
           - "--set"
           - "image=$(IMAGE)"
-          - "--version"
-          - "$(VERSION)"
+          - "--set"
+          - "stage=-prod"
         ttlSecondsAfterFinished: 100
 
 
