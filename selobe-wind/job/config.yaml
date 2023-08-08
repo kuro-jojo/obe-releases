@@ -11,14 +11,11 @@ actions:
           - name: IMAGE
             value: "$.data.configurationChange.values.image"
             valueFrom: event
-          - name: VERSION 
-            value: "$.data.configurationChange.values.version"
-            valueFrom: event
         image: "alpine/helm:3.7.2"
         serviceAccount: "jes-deploy-using-helm"
-        cmd: 
+        cmd:
           - "helm"
-        args: 
+        args:
           - "upgrade"
           - "--create-namespace"
           - "--install"
@@ -28,38 +25,17 @@ actions:
           - "/keptn/charts/$(KEPTN_SERVICE).tgz"
           - "--set"
           - "image=$(IMAGE)"
-          - "--version"
-          - "$(VERSION)"
         ttlSecondsAfterFinished: 100
 
-
-  - name: "Fallback to previous version"
+  - name: "Test the application"
     events:
-      - name: "sh.keptn.event.action.triggered"
-        jsonpath:
-          property: "$.data.action.action"
-          match: "fallback"
+      - name: "sh.keptn.event.test.triggered"
     tasks:
-      - name: "Deploy using helm"
+      - name: "Run tests using python"
         files:
-          - /charts
-        env:
-          - name: IMAGE
-            value: $.data.action.value.defaultApp
-            valueFrom: event
-        image: "alpine/helm:3.7.2"
+          - /tests
         serviceAccount: "jes-deploy-using-helm"
-        cmd: 
-          - "helm"
-        args: 
-          - "upgrade"
-          - "--create-namespace"
-          - "--install"
-          - "-n"
-          - "$(KEPTN_PROJECT)-$(KEPTN_STAGE)"
-          - "$(KEPTN_SERVICE)"
-          - "/keptn/charts/$(KEPTN_SERVICE).tgz"
-          - "--set"
-          - "image=$(IMAGE)"
-
+        image: "kuro08/python:latest"
+        cmd: ["python"]
+        args: ["/keptn/tests/tester.py"]
         ttlSecondsAfterFinished: 100
